@@ -18,7 +18,7 @@ class Player():
 #method to check if somebody won the game
 class Four_In_A_Row():
         #dictionary for the single fields of the game
-        # fields[row] = list[columns of that row]
+        # fields[column] = list[rows of that column]
         fields = {}
         for i in range (7):
             fields[i] = list(range(6))
@@ -49,6 +49,50 @@ class Four_In_A_Row():
                     self.fields[column_number - 1][-i - 1] = player_token
                     break
             self.print_field()
+        
+        def check_win(self, token):
+            win = False
+            #checking 4 vertical
+            for i in range(7):
+                #have to be at least 4 same tokens
+                if self.fields[i].count(token) >= 4
+                    #two in middle of the column need to be same token
+                    if self.fields[i][2] == token and self.fields[i][3] == token:
+                        #3 possibilities
+                        if self.fields[i][1] == token:
+                            if self.fields[i][0] == self.fields[i][1] or self.fields[i][4] == self.fields[i][1]:
+                                win = True
+                        if self.fields[i][4] == token and self.fields[i][4] == self.fields[i][5]:
+                            win = True
+                        
+            #checking 4 horizontal
+            for j in range(6):
+                #create list for rows
+                for i in range(7):
+                    list = []
+                    list.append(self.fields[i][j])
+                #have to be at least 4 tokens same kind
+                if list.count(token) >= 4:
+                    #middle of the row need to be the same
+                    if list[3] == token:
+                        #4 possibilities left
+                        if list[2] == token:
+                            if list[1] == token:
+                                if list[1] == list[0] or list[1] == list[4]:
+                                    win = True
+                            if list[4] == token and list[5] == token:
+                                win = True
+                        if list[4] == token and list[5] == token and list [6] == token:
+                            win = True
+            
+            #checking 4 diagonal
+            
+
+                            
+
+                
+
+             
                 
 
 
