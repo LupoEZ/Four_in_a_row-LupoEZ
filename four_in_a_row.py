@@ -12,9 +12,7 @@ class Player():
             return "{name} is playing as Player {number} with the \"{token}\" token.".format(name=self.name, number=self.player_number, token=self.token)
         
             
-
-        
-
+#class for the game
 class Four_In_A_Row():
         #dictionary for the single fields of the game
         # fields[column] = list[rows of that column]
@@ -49,7 +47,7 @@ class Four_In_A_Row():
                     break
             self.print_field()
         
-        #method for the gameplayer
+        #method for the gameplay
         def gameplay(self):
             #game preparation
             self.create_clear_game()
@@ -66,7 +64,13 @@ class Four_In_A_Row():
                 else:
                     current_player_name = player2.name
                     current_player_token = player2.token
-                column_number = int(input("{name} it`s your turn! In which column do you wanna place ur \"{token}\"? ".format(name=current_player_name, token=current_player_token)))
+                chosen_column = input("{name} it`s your turn! In which column do you wanna place ur \"{token}\"? ".format(name=current_player_name, token=current_player_token))
+                while random_number < 10:
+                    if chosen_column == "1" or chosen_column == "2" or chosen_column == "3" or chosen_column == "4" or chosen_column == "5" or chosen_column == "6" or chosen_column == "7":
+                        break
+                    else:
+                        chosen_column = input("{I'm sorry. This column doesn't exist. Take one from 1 to 7 please. ")
+                column_number = int(chosen_column)
                 #check if the column is filled already and infinite loop, if they dont pick an empty column
                 while random_number < 10:
                     if self.fields[column_number - 1][0] != "-":
@@ -75,49 +79,30 @@ class Four_In_A_Row():
                         break
                 self.edit_field(column_number, current_player_token)
                 #check is somebody won
-                possible_win = self.check_win(current_player_name, current_player_token)
+                possible_win = self.check_win(current_player_token)
                 if possible_win == True:
                     break    
             #end of the game and question for a new one
             decision = False
-            helping_hand = 1
+            random_number2 = 1
             if move >= 42:
                 answer = input("It's a draw. No one of you won this time. Do you wanna play another game? Write \"Yes\" or \"No\": ")
-                if answer == "Yes":
-                    decision = True
-                elif answer == "No":
-                    decision = False
-                else:
-                    while helping_hand < 10:
-                        new_answer = input("I'm sorry I dont understand. Write \"Yes\" or \"No\" please: ")
-                        if new_answer == "Yes":
-                            decision = True
-                            break
-                        elif new_answer == "No":
-                            decision = False
-                            break
-            
             else:
                 answer = input("Do you wanna play another one? Write \"Yes\" or \"No\": ")
+            while random_number2 < 10:
                 if answer == "Yes":
                     decision = True
+                    break
                 elif answer == "No":
-                    decision = False
+                    decision = False    
+                    break
                 else:
-                    while helping_hand < 10:
-                        new_answer = input("I'm sorry I dont understand. Write \"Yes\" or \"No\" please: ")
-                        if new_answer == "Yes":
-                            decision = True
-                            break
-                        elif new_answer == "No":
-                            decision = False
-                            break
+                    answer = input("I'm sorry I dont understand. Write \"Yes\" or \"No\" please: ")
             if decision == True:
                 self.gameplay()
 
-
         #method to check for the win
-        def check_win(self, player_name, token):
+        def check_win(self, token):
             win = False
             #checking 4 vertical
             for i in range(7):
@@ -134,8 +119,8 @@ class Four_In_A_Row():
             #checking 4 horizontal
             for j in range(6):
                 #create list for rows
+                list = []
                 for i in range(7):
-                    list = []
                     list.append(self.fields[i][j])
                 #have to be at least 4 tokens same kind
                 if list.count(token) >= 4:
@@ -212,11 +197,6 @@ class Four_In_A_Row():
             return win
                             
 
-                
-
-             
-                
-
 
 #initialize the game
 game = Four_In_A_Row()
@@ -234,66 +214,5 @@ else:
     player2.token = "X"
 player1.token = token1
 
-#game preparation
-# game.create_clear_game()
-# print(player1)
-# print(player2)
-
-#gameplay - player input to place their tokens
-# move = 0
-# random_number = 1
-# while move < 42:
-#     move += 1
-#     if move % 2 == 1:
-#         current_player_name = player1.name
-#         current_player_token = player1.token
-#     else:
-#         current_player_name = player2.name
-#         current_player_token = player2.token
-#     column_number = int(input("{name} it`s your turn! In which column do you wanna place ur \"{token}\"? ".format(name=current_player_name, token=current_player_token)))
-#     #check if the column is filled already and infinite loop, if they dont pick an empty column
-#     while random_number < 10:
-#         if game.fields[column_number - 1][0] != "-":
-#             column_number = int(input("I'm sorry {name}, but that column is already completely filled. Take another one to place our \"{token}\". ".format(name=current_player_name, token=current_player_token)))
-#         else:
-#             break
-#     game.edit_field(column_number, current_player_token)
-#     possible_win = game.check_win(current_player_name, current_player_token)
-#     if possible_win == True:
-#         break
+#the game itself
 game.gameplay()
-
-#end of the game - question, if players want to play another one
-# decision = False
-# helping_hand = 1
-# if move >= 42:
-#     answer = input("It's a draw. No one of you won this time. Do you wanna play another game? Write \"Yes\" or \"No\": ")
-#     if answer == "Yes":
-#         decision = True
-#     elif answer == "No":
-#         decision = False
-#     else:
-#         while helping_hand < 10:
-#             new_answer = input("I'm sorry I dont understand. Write \"Yes\" or \"No\" please: ")
-#             if new_answer == "Yes":
-#                 decision = True
-#                 break
-#             elif new_answer == "No":
-#                 decision = False
-#                 break
-            
-# else:
-#     answer = input("Do you wanna play another one? Write \"Yes\" or \"No\": ")
-#     if answer == "Yes":
-#         decision = True
-#     elif answer == "No":
-#         decision = False
-#     else:
-#         while helping_hand < 10:
-#             new_answer = input("I'm sorry I dont understand. Write \"Yes\" or \"No\" please: ")
-#             if new_answer == "Yes":
-#                 decision = True
-#                 break
-#             elif new_answer == "No":
-#                 decision = False
-#                 break
